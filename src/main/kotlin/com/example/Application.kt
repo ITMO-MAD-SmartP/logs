@@ -78,6 +78,7 @@ fun main() {
                 val stringList = objectMapper.writeValueAsString(list)
                 jedis2.lpush("queue:tlogs-responses", stringList)
                 println("sensor history sent for requestId = " + request.requestId)
+                println(stringList)
             }
             delay(100)
         }

@@ -29,7 +29,7 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:$logback_version")
     testImplementation("io.ktor:ktor-server-tests-jvm")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
-    implementation("redis.clients:jedis:3.7.0")
+    implementation("redis.clients:jedis:4.0.1")
     implementation("com.ecwid.clickhouse:clickhouse-client:0.13.0")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.1")
 }

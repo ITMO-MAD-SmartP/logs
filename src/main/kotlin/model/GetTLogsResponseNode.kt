@@ -1,12 +1,11 @@
-package model;
+package model
 
 import com.fasterxml.jackson.annotation.JsonFormat
 import java.sql.Timestamp
 
-data class TLog(
-    var sensorId: Int,
-    var type: String,
-    var value: Double,
+data class GetTLogsResponseNode(
+    var requestId: Int,
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-    var time: Timestamp
+    var time: Timestamp,
+    var value: Double
 )

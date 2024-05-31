@@ -16,6 +16,7 @@ import kotlinx.coroutines.launch
 import model.GetTLogsRequest
 import model.GetTLogsResponseNode
 import model.TLog
+import model.TLogsResponse
 import redis.clients.jedis.Jedis
 import java.sql.Timestamp
 import java.util.*
@@ -71,14 +72,15 @@ fun main() {
 
                 clickHouseClient.select("http://localhost:8123", sql, typedRowToTLog).use { response ->
                     for (log in response) {
-                        val node = GetTLogsResponseNode(request.requestId, log.time, log.value)
+                        val node = GetTLogsResponseNode(log.time, log.value)
                         list.add(node)
                     }
                 }
-                val stringList = objectMapper.writeValueAsString(list)
+                val tLogsResponse: TLogsResponse = TLogsResponse(request.requestId, list)
+                val stringList = objectMapper.writeValueAsString(tLogsResponse)
                 jedis2.lpush("queue:tlogs-responses", stringList)
                 println("sensor history sent for requestId = " + request.requestId)
-                println(stringList)
+                println(tLogsResponse)
             }
             delay(100)
         }
